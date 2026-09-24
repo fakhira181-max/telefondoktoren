@@ -1051,9 +1051,6 @@
         { name:'iPhone 11', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_11.jpg?width=320' },
         { name:'iPhone XS', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_XS.jpg?width=320' },
         { name:'iPhone X', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_X.jpg?width=320' },
-        { name:'iPhone 8', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_8.jpg?width=320' },
-        { name:'iPhone 7', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_7.jpg?width=320' },
-        { name:'iPhone SE (2022)', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_SE_2022.jpg?width=320' },
         { name:'Galaxy S24 Ultra', brand:'Samsung', image:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80' },
         { name:'Galaxy S23 Ultra', brand:'Samsung', image:'https://images.unsplash.com/photo-1610792516307-ea5acd9c3b3d?auto=format&fit=crop&w=500&q=80' },
         { name:'Pixel 9 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_9_Pro.jpg?width=320' },
@@ -1062,7 +1059,7 @@
         { name:'Pixel 6 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_6_Pro.jpg?width=320' },
         { name:'OnePlus 12', brand:'OnePlus', image:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80' },
         { name:'Huawei P60 Pro', brand:'Huawei', image:'https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?auto=format&fit=crop&w=500&q=80' },
-        { name:'Anden smartphone', brand:'Fortæl os din model', image:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80' }
+        { name:'Anden smartphone', brand:'Fortæl os din model', question:true }
       ],
       tablet: [
         { name:'iPad Pro 13"', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/IPad_Pro_2024.png/320px-IPad_Pro_2024.png' },
@@ -1116,7 +1113,7 @@
         button.type = 'button';
         button.className = 'model-button';
         var image = document.createElement('img');
-        image.src = model.image;
+        image.src = model.question ? 'data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 240 180"%3E%3Crect width="240" height="180" fill="%23edf3ff"%2F%3E%3Ccircle cx="120" cy="90" r="52" fill="%232a63d4"%2F%3E%3Ctext x="120" y="112" text-anchor="middle" font-family="Arial%2Csans-serif" font-size="78" font-weight="700" fill="white"%3E%3F%3C%2Ftext%3E%3C%2Fsvg%3E' : model.image;
         image.addEventListener('error', function(){
           if(image.src !== phonePhotos[index % phonePhotos.length]){ image.src = phonePhotos[index % phonePhotos.length]; }
         });
