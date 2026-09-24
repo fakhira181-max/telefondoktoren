@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telefondoktoren</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --paper:#F1F3EF;
+    --paper-raised:#FFFFFF;
+    --ink:#12181A;
+    --ink-soft:#4E5B5A;
+    --line:#D7DCD6;
+    --accent:#D94D3A;
+    --accent-ink:#FFFFFF;
+    --mint:#2F7A66;
+    --mint-soft:#E3EFE9;
+    --shadow: 0 1px 2px rgba(18,24,26,0.06), 0 8px 24px -12px rgba(18,24,26,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#10151A;
+      --paper-raised:#171E23;
+      --ink:#ECEFEA;
+      --ink-soft:#A9B3AF;
+      --line:#2A3339;
+      --accent:#FF6A54;
+      --accent-ink:#171E23;
+      --mint:#59C8A6;
+      --mint-soft:#17302A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 28px -14px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#10151A;
+    --paper-raised:#171E23;
+    --ink:#ECEFEA;
+    --ink-soft:#A9B3AF;
+    --line:#2A3339;
+    --accent:#FF6A54;
+    --accent-ink:#171E23;
+    --mint:#59C8A6;
+    --mint-soft:#17302A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 28px -14px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html, body{ margin:0; padding:0; }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    body{ scroll-behavior:auto; }
+  }
+  h1,h2,h3{
+    font-family:'Bricolage Grotesque', system-ui, sans-serif;
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    text-wrap:balance;
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding-inline:24px;
+  }
+  section{ scroll-margin-top: 76px; }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:500;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-header .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:68px;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-weight:700;
+    font-size:1.1rem;
+    text-decoration:none;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .brand-mark{
+    width:34px;height:34px;
+    border-radius:9px;
+    background:var(--ink);
+    color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .brand-mark{ background:var(--accent); color:var(--accent-ink);} }
+  :root[data-theme="dark"] .brand-mark{ background:var(--accent); color:var(--accent-ink); }
+  nav.primary-nav{
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  nav.primary-nav a{
+    text-decoration:none;
+    font-size:0.92rem;
+    font-weight:500;
+    color:var(--ink-soft);
+  }
+  nav.primary-nav a:hover{ color:var(--ink); }
+  .header-actions{ display:flex; align-items:center; gap:10px; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:0.92rem;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); }
+  .btn-primary:hover{ filter:brightness(1.06); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink-soft); }
+  .menu-toggle{
+    display:none;
+    background:none;border:1px solid var(--line);border-radius:8px;
+    width:40px;height:40px;
+    align-items:center;justify-content:center;
+    color:var(--ink);
+    cursor:pointer;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-block: 72px 56px;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{ font-size:clamp(2.1rem, 4vw + 0.8rem, 3.3rem); margin-block:16px 18px; }
+  .hero .lede{ font-size:1.08rem; color:var(--ink-soft); max-width:46ch; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+  .stat-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    margin-top:38px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+  }
+  .stat{ min-width:110px; }
+  .stat b{
+    display:block;
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-size:1.5rem;
+    font-weight:700;
+  }
+  .stat span{ font-size:0.82rem; color:var(--ink-soft); }
+
+  /* ticket card */
+  .ticket{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:22px 22px 18px;
+    position:relative;
+    max-width:360px;
+    margin-inline:auto;
+  }
+  .ticket::before, .ticket::after{
+    content:"";
+    position:absolute;
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--paper);
+    top:50%; transform:translateY(-50%);
+  }
+  .ticket::before{ left:-10px; }
+  .ticket::after{ right:-10px; }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding-bottom:12px; margin-bottom:14px;
+    border-bottom:1px dashed var(--line);
+  }
+  .ticket-head b{ font-family:'Bricolage Grotesque', sans-serif; font-size:1rem; }
+  .ticket-head span{ font-size:0.74rem; color:var(--ink-soft); }
+  .ticket-row{
+    display:flex; justify-content:space-between; gap:12px;
+    padding:7px 0;
+    font-size:0.88rem;
+  }
+  .ticket-row + .ticket-row{ border-top:1px solid var(--line); }
+  .ticket-row .k{ color:var(--ink-soft); }
+  .ticket-row .v{ font-weight:600; text-align:right; }
+  .status-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--mint-soft); color:var(--mint);
+    padding:3px 10px; border-radius:999px;
+    font-size:0.78rem; font-weight:600;
+  }
+  .status-pill::before{ content:""; width:6px;height:6px;border-radius:50%;background:var(--mint); }
+  .ticket-price{
+    margin-top:14px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .ticket-price b{ font-size:1.4rem; font-family:'IBM Plex Mono', monospace; }
+
+  .pulse-divider{ display:block; width:100%; height:40px; margin-block:8px; color:var(--line); }
+  .pulse-divider path{ stroke:var(--accent); }
+  @media (prefers-reduced-motion: no-preference){
+    .pulse-divider path{
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: draw 2.2s ease-out forwards;
+    }
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- generic section chrome ---------- */
+  .section-head{
+    max-width:56ch;
+    margin-bottom:40px;
+  }
+  .section-head h2{ font-size:clamp(1.6rem, 2vw + 1rem, 2.2rem); margin-top:12px; }
+  .section-head p{ color:var(--ink-soft); margin-top:12px; font-size:1rem; }
+  section{ padding-block:64px; }
+  .band{ border-top:1px solid var(--line); }
+
+  /* ---------- services ---------- */
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:16px;
+  }
+  .service-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .service-icon{
+    width:42px;height:42px;
+    border-radius:10px;
+    background:var(--mint-soft);
+    color:var(--mint);
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .service-card h3{ font-size:1.02rem; font-weight:700; font-family:'IBM Plex Sans', sans-serif;}
+  .service-card p{ font-size:0.9rem; color:var(--ink-soft); }
+
+  /* ---------- process ---------- */
+  .process-list{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    counter-reset:step;
+  }
+  .process-step{
+    padding:22px 20px 0 0;
+    border-top:2px solid var(--line);
+    position:relative;
+  }
+  .process-step .num{
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-size:0.85rem;
+    color:var(--accent);
+    font-weight:700;
+    display:block;
+    margin-bottom:10px;
+  }
+  .process-step h3{ font-size:1.02rem; margin-bottom:8px; }
+  .process-step p{ font-size:0.88rem; color:var(--ink-soft); }
+
+  /* ---------- pricing ---------- */
+  .price-table{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .price-table .row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:16px 22px;
+    align-items:baseline;
+  }
+  .price-table .row + .row{ border-top:1px solid var(--line); }
+  .price-table .row .label{ font-weight:500; }
+  .price-table .row .sub{ display:block; font-size:0.8rem; color:var(--ink-soft); margin-top:2px; }
+  .price-table .row .price{ font-family:'IBM Plex Mono', monospace; font-weight:500; white-space:nowrap; }
+  .price-note{ font-size:0.86rem; color:var(--ink-soft); margin-top:16px; }
+
+  /* ---------- reviews ---------- */
+  .review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:16px;
+  }
+  .review-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:10px;
+    padding:20px;
+  }
+  .review-stars{ color:var(--accent); font-size:0.85rem; letter-spacing:2px; margin-bottom:10px; }
+  .review-card p.quote{ font-size:0.95rem; }
+  .review-by{ display:block; margin-top:14px; font-size:0.82rem; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+
+  /* ---------- faq ---------- */
+  .faq-list{ display:flex; flex-direction:column; gap:10px; max-width:760px; }
+  details{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 20px;
+  }
+  summary{
+    cursor:pointer;
+    font-weight:600;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{
+    content:"+";
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-size:1.2rem;
+    color:var(--accent);
+    flex:none;
+  }
+  details[open] summary::after{ content:"–"; }
+  details p{ margin-top:12px; color:var(--ink-soft); font-size:0.92rem; }
+
+  /* ---------- contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+  }
+  .info-list{ display:flex; flex-direction:column; gap:16px; margin-top:20px; }
+  .info-item{ display:flex; gap:12px; align-items:flex-start; }
+  .info-item .ico{ width:34px;height:34px;border-radius:8px;background:var(--mint-soft);color:var(--mint);display:flex;align-items:center;justify-content:center;flex:none; }
+  .info-item b{ display:block; font-size:0.94rem; }
+  .info-item span{ font-size:0.88rem; color:var(--ink-soft); }
+  .hours-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px;
+  }
+  .hours-card h3{ font-size:1rem; margin-bottom:16px; }
+  .hours-row{ display:flex; justify-content:space-between; padding:8px 0; font-size:0.92rem; }
+  .hours-row + .hours-row{ border-top:1px solid var(--line); }
+  .hours-row .d{ color:var(--ink-soft); }
+  .hours-row .t{ font-family:'IBM Plex Mono', monospace; }
+  .booking-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px;
+    box-shadow:var(--shadow);
+  }
+  .booking-card h3{ font-size:1rem; margin-bottom:6px; }
+  .booking-card > p{ color:var(--ink-soft); font-size:0.88rem; margin-bottom:18px; }
+  .booking-form{ display:grid; gap:13px; }
+  .booking-form label{ display:grid; gap:6px; font-size:0.82rem; font-weight:600; }
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--paper);
+    color:var(--ink);
+    font:inherit;
+    font-size:0.9rem;
+    padding:10px 12px;
+  }d
+  .booking-form textarea{ min-height:82px; resize:vertical; }
+  .booking-form input:focus,
+  .booking-form select:focus,
+  .booking-form textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .booking-form .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .booking-form .consent{ display:flex; grid-template-columns:none; align-items:flex-start; gap:8px; font-weight:400; color:var(--ink-soft); line-height:1.35; }
+  .booking-form .consent input{ width:16px; height:16px; margin-top:2px; flex:none; accent-color:var(--accent); }
+  .booking-form .btn{ justify-content:center; width:100%; }
+  .booking-note{ font-size:0.76rem; color:var(--ink-soft); text-align:center; }
+
+  /* ---------- footer ---------- */
+  .site-footer{
+    border-top:1px solid var(--line);
+    padding-block:36px;
+  }
+  .site-footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .footer-note{ font-size:0.82rem; color:var(--ink-soft); }
+  .footer-links{ display:flex; gap:20px; }
+  .footer-links a{ font-size:0.85rem; text-decoration:none; color:var(--ink-soft); }
+  .footer-links a:hover{ color:var(--ink); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px){
+    nav.primary-nav{ display:none; }
+    .menu-toggle{ display:flex; }
+    .header-actions .btn-ghost{ display:none; }
+    .hero .wrap{ grid-template-columns:1fr; }
+    .ticket{ max-width:420px; }
+    .process-list{ grid-template-columns:repeat(2, 1fr); gap:28px 20px; }
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 520px){
+    .process-list{ grid-template-columns:1fr; }
+    .stat-row{ gap:20px; }
+    .site-header .wrap{ height:60px; }
+    .booking-form .form-row{ grid-template-columns:1fr; }
+  }
+
+  .mobile-nav{
+    display:none;
+    flex-direction:column;
+    gap:2px;
+    border-top:1px solid var(--line);
+    background:var(--paper);
+  }
+  .mobile-nav.open{ display:flex; }
+  .mobile-nav a{
+    padding:14px 24px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:500;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-nav .btn{ margin:14px 24px; justify-content:center; }
+
+  /* ---------- repair-shop visual direction ---------- */
+  :root{
+    --paper:#f7f8fb;
+    --paper-raised:#ffffff;
+    --ink:#182033;
+    --ink-soft:#667085;
+    --line:#e4e8f0;
+    --accent:#ef4b72;
+    --accent-ink:#ffffff;
+    --mint:#2a63d4;
+    --mint-soft:#edf3ff;
+    --shadow:0 16px 40px -24px rgba(34,47,82,.34);
+  }
+  .site-header{ background:rgba(255,255,255,.94); }
+  .topbar{
+    background:#202b55;
+    color:#dfe7ff;
+    font-size:.78rem;
+  }
+  .topbar .wrap{ display:flex; justify-content:space-between; gap:16px; padding-block:8px; }
+  .topbar a{ color:#fff; text-decoration:none; font-weight:600; }
+  .brand-mark{ background:#202b55; border-radius:50%; }
+  nav.primary-nav a{ color:#4c5870; }
+  nav.primary-nav a:hover{ color:var(--accent); }
+  .hero{ padding-block:70px 52px; background:linear-gradient(180deg,#fff 0%,#f7f8fb 100%); }
+  .hero .wrap{ grid-template-columns:1fr; text-align:center; gap:28px; }
+  .hero h1{ max-width:760px; margin:16px auto 18px; font-size:clamp(2.3rem,5vw,4.35rem); color:#202b55; }
+  .hero .lede{ margin-inline:auto; max-width:60ch; }
+  .hero-cta{ justify-content:center; }
+  .hero .ticket{ display:none; }
+  .hero .stat-row{ justify-content:center; max-width:760px; margin-inline:auto; }
+  .eyebrow{ color:var(--accent); }
+  .eyebrow::before{ background:var(--accent); }
+  .btn{ border-radius:5px; padding:12px 20px; }
+  .btn-primary{ background:var(--accent); box-shadow:0 8px 18px -10px rgba(239,75,114,.9); }
+  .btn-ghost{ background:#fff; }
+  .pulse-divider{ display:none; }
+  .device-finder{ padding-block:16px 70px; background:#f7f8fb; }
+  .finder-panel{ background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:0 20px 42px -28px rgba(34,47,82,.38); padding:28px; text-align:center; }
+  .finder-panel h2{ color:#202b55; font-size:clamp(1.6rem,2vw,2.2rem); }
+  .finder-panel p{ color:var(--ink-soft); margin:9px auto 20px; }
+  .finder-search{ display:flex; max-width:620px; margin:auto; gap:10px; }
+  .finder-search input{ flex:1; border:1px solid #d7ddea; border-radius:5px; padding:13px 15px; font:inherit; color:var(--ink); }
+  .finder-search input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .category-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px; }
+  .category-card{ min-height:150px; border:1px solid var(--line); border-radius:7px; overflow:hidden; position:relative; display:flex; align-items:flex-end; padding:17px; text-align:left; color:#fff; background-size:cover; background-position:center; }
+  .category-card::after{ content:""; position:absolute; inset:35% 0 0; background:linear-gradient(transparent,rgba(14,22,51,.82)); pointer-events:none; }
+  .category-card span{ position:relative; z-index:1; font-weight:700; letter-spacing:.04em; }
+  .category-card:nth-child(1){ background-image:url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=80'); }
+  .category-card:nth-child(2){ background-image:url('https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=700&q=80'); }
+  .category-card:nth-child(3){ background-image:url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80'); }
+  .category-card:nth-child(4){ background-image:url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=700&q=80'); }
+  .model-options{ display:none; margin-top:24px; padding-top:22px; border-top:1px solid var(--line); text-align:left; }
+  .model-options.open{ display:block; }
+  .model-options h3{ color:#202b55; font-size:1.05rem; margin-bottom:12px; }
+  .model-buttons{ display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:12px; }
+  .model-button{ appearance:none; -webkit-appearance:none; border:1px solid #c8d2e3; background:#fff; color:#182033; -webkit-text-fill-color:#182033; border-radius:7px; padding:0; font:inherit; font-size:.9rem; font-weight:600; line-height:1.3; text-align:left; cursor:pointer; opacity:1; overflow:hidden; }
+  .model-button img{ display:block; width:100%; height:135px; object-fit:contain; background:#f3f5f8; padding:12px; }
+  .model-button-label{ display:block; padding:11px 12px 12px; }
+  .model-button-label small{ display:block; color:#667085; -webkit-text-fill-color:#667085; font-size:.75rem; font-weight:400; margin-top:3px; }
+  .model-button:hover,.model-button:focus-visible{ border-color:var(--accent); color:#c52d55; -webkit-text-fill-color:#c52d55; outline:2px solid color-mix(in srgb, var(--accent) 22%, transparent); outline-offset:1px; }
+  .model-button:hover img,.model-button:focus-visible img{ background:#fff0f3; }
+  .finder-message{ display:none; color:var(--accent); font-size:.86rem; margin-top:12px; }
+  .finder-message.open{ display:block; }
+  .repair-options{ display:none; margin-top:28px; padding-top:24px; border-top:1px solid var(--line); text-align:left; }
+  .repair-options.open{ display:block; }
+  .repair-options-head{ display:flex; justify-content:space-between; align-items:end; gap:16px; margin-bottom:14px; }
+  .repair-options h3{ color:#202b55; font-size:1.2rem; margin:0; }
+  .repair-options-intro{ color:var(--ink-soft); font-size:.86rem; margin-top:4px; }
+  .back-to-models{ border:0; background:none; color:var(--mint); cursor:pointer; font:inherit; font-size:.82rem; font-weight:600; padding:6px 0; }
+  .repair-list{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .repair-option{ appearance:none; -webkit-appearance:none; border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--ink); padding:16px; text-align:left; cursor:pointer; box-shadow:0 5px 18px -16px rgba(34,47,82,.5); }
+  .repair-option:hover,.repair-option:focus-visible{ border-color:var(--mint); outline:2px solid color-mix(in srgb,var(--mint) 20%,transparent); outline-offset:1px; }
+  .repair-option-top{ display:flex; justify-content:space-between; align-items:start; gap:10px; }
+  .repair-option strong{ font-size:.96rem; }
+  .repair-price{ background:#edf3ff; color:#2470ba; border-radius:5px; padding:4px 8px; font-family:'IBM Plex Mono',monospace; font-size:.78rem; font-weight:600; white-space:nowrap; }
+  .repair-time{ display:block; color:#2470ba; font-size:.7rem; font-weight:600; letter-spacing:.04em; margin-top:5px; text-transform:uppercase; }
+  .repair-option p{ color:var(--ink-soft); font-size:.82rem; line-height:1.4; margin-top:10px; }
+  .repair-option small{ color:var(--mint); display:block; font-size:.76rem; font-weight:600; margin-top:12px; }
+  .repair-detail{ display:none; margin-top:28px; border-top:1px solid var(--line); padding-top:28px; }
+  .repair-detail.open{ display:block; }
+  .repair-detail-card{ display:grid; grid-template-columns:1.2fr .8fr; gap:28px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:24px; }
+  .repair-detail h3{ color:#202b55; font-size:clamp(1.5rem,2vw,2rem); margin:0 0 8px; }
+  .repair-detail p{ color:var(--ink-soft); max-width:58ch; }
+  .repair-detail-meta{ display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+  .repair-detail-meta span{ background:#edf3ff; color:#2470ba; border-radius:5px; padding:7px 10px; font-size:.8rem; font-weight:600; }
+  .repair-detail-aside{ border-left:1px solid var(--line); padding-left:24px; display:flex; flex-direction:column; justify-content:center; gap:12px; }
+  .repair-detail-price{ color:#202b55; font-family:'IBM Plex Mono',monospace; font-size:1.35rem; font-weight:600; }
+  .repair-detail .btn{ justify-content:center; }
+  .repair-detail-back{ border:0; background:none; color:var(--mint); cursor:pointer; font:inherit; font-size:.82rem; font-weight:600; padding:0; text-align:left; }
+  @media (max-width:700px){ .repair-detail-card{ grid-template-columns:1fr; } .repair-detail-aside{ border-left:0; border-top:1px solid var(--line); padding:18px 0 0; } }
+  @media (max-width:700px){ .repair-list{ grid-template-columns:1fr; } .repair-options-head{ align-items:start; flex-direction:column; gap:4px; } }
+  .service-card,.review-card,.hours-card,.booking-card,.price-table,details{ border-radius:7px; }
+  .service-card{ box-shadow:none; }
+  .service-icon{ border-radius:50%; }
+  .trust-strip{ background:#202b55; color:#fff; padding-block:25px; }
+  .trust-strip .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .trust-item{ display:flex; gap:11px; align-items:center; }
+  .trust-item strong{ display:block; font-size:.9rem; }
+  .trust-item span{ color:#c5d0f0; font-size:.78rem; }
+  .trust-icon{ width:34px; height:34px; border:1px solid #6272a7; border-radius:50%; display:grid; place-items:center; color:#fff; flex:none; }
+  @media (max-width:700px){
+    .topbar .wrap{ flex-wrap:wrap; justify-content:center; }
+    .finder-search{ flex-direction:column; }
+    .category-grid{ grid-template-columns:repeat(2,1fr); }
+    .trust-strip .wrap{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#f7f8fb;
+      --paper-raised:#ffffff;
+      --ink:#182033;
+      --ink-soft:#667085;
+      --line:#e4e8f0;
+      --accent:#ef4b72;
+      --accent-ink:#ffffff;
+      --mint:#2a63d4;
+      --mint-soft:#edf3ff;
+      --shadow:0 16px 40px -24px rgba(34,47,82,.34);
+    }
+  }
+  .intro-screen{ position:fixed; inset:0; z-index:100; display:grid; place-items:center; background:#202b55; color:#fff; transform:translateX(0); transition:transform .9s cubic-bezier(.77,0,.18,1); }
+  .intro-screen.is-hidden{ transform:translateX(-100%); pointer-events:none; }
+  .intro-content{ text-align:center; padding:24px; animation:intro-rise .8s ease both; }
+  .intro-mark{ width:68px; height:68px; margin:0 auto 22px; display:grid; place-items:center; border-radius:50%; background:var(--pink); color:#fff; box-shadow:0 0 0 10px rgba(239,75,114,.14); }
+  .intro-content h1{ color:#fff; font-size:clamp(2rem,5vw,3.8rem); margin:0; }
+  .intro-content p{ color:#dfe7ff; margin:12px 0 28px; font-size:1rem; }
+  .intro-line{ width:96px; height:3px; margin:auto; border-radius:3px; background:var(--pink); animation:intro-line 1.7s ease-in-out infinite; }
+  .intro-skip{ position:absolute; right:24px; bottom:22px; border:1px solid rgba(255,255,255,.35); border-radius:5px; background:transparent; color:#fff; padding:9px 13px; font:inherit; font-size:.8rem; cursor:pointer; }
+  .intro-skip:hover,.intro-skip:focus-visible{ border-color:#fff; outline:2px solid rgba(255,255,255,.3); outline-offset:2px; }
+  @keyframes intro-rise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+  @keyframes intro-line{ 0%,100%{ transform:scaleX(.6); opacity:.6; } 50%{ transform:scaleX(1); opacity:1; } }
+  @media (prefers-reduced-motion:reduce){ .intro-screen{ transition:none; } .intro-content,.intro-line{ animation:none; } }
+</style>
+</head>
+<body>
+
+<div class="intro-screen" id="introScreen" role="dialog" aria-label="Velkommen til Telefondoktoren">
+  <div class="intro-content">
+    <div class="intro-mark" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3.2-8-7.1-8-11.2C4 6.6 6.5 4 9.6 4c1.6 0 2.9.8 3.4 1.8C13.5 4.8 14.8 4 16.4 4 19.5 4 22 6.6 22 9.8 22 13.9 16 17.8 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    <h1>Telefondoktoren</h1>
+    <p>Din lokale mobilreparation i Kolding</p>
+    <div class="intro-line" aria-hidden="true"></div>
+  </div>
+  <button class="intro-skip" id="introSkip" type="button">Spring intro over</button>
+</div>
+
+<header class="site-header">
+  <div class="topbar"><div class="wrap"><span>Professionel mobilreparation med garanti</span><span>Ring til os: <a href="tel:+4552697932">+45 52 69 79 32</a></span></div></div>
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3.2-8-7.1-8-11.2C4 6.6 6.5 4 9.6 4c1.6 0 2.9.8 3.4 1.8C13.5 4.8 14.8 4 16.4 4 19.5 4 22 6.6 22 9.8 22 13.9 16 17.8 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
+      Telefondoktoren
+    </a>
+    <nav class="primary-nav" aria-label="Hovedmenu">
+      <a href="#diagnose">Diagnose</a>
+      <a href="#proces">Sådan foregår det</a>
+      <a href="#priser">Priser</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:+4552697932" class="btn btn-ghost">+45 52 69 79 32</a>
+      <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Åbn menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#diagnose">Diagnose</a>
+    <a href="#proces">Sådan foregår det</a>
+    <a href="#priser">Priser</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Telefonklinik &middot; Kolding</span>
+        <h1>Din skærm er knust.<br>Ikke din dag.</h1>
+        <p class="lede">Vi stiller diagnosen med det samme og reparerer de fleste skærme og batterier, mens du venter. Fast pris, originale dele og 12 måneders garanti på alt arbejde.</p>
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+          <a href="tel:+4552697932" class="btn btn-ghost">Ring: +45 52 69 79 32</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b class="mono">3.000+</b><span>Reparationer udført</span></div>
+          <div class="stat"><b class="mono">30 min</b><span>Ventetid fra</span></div>
+          <div class="stat"><b class="mono">12 mdr.</b><span>Garanti på arbejdet</span></div>
+          <div class="stat"><b class="mono">4,9/5</b><span>Gennemsnitlig vurdering</span></div>
+        </div>
+      </div>
+
+      <div class="ticket" aria-hidden="true">
+        <div class="ticket-head">
+          <b>Reparationsseddel</b>
+          <span class="mono">#0148</span>
+        </div>
+        <div class="ticket-row"><span class="k">Model</span><span class="v">iPhone 13</span></div>
+        <div class="ticket-row"><span class="k">Fejl</span><span class="v">Knust skærm</span></div>
+        <div class="ticket-row"><span class="k">Status</span><span class="v"><span class="status-pill">Under behandling</span></span></div>
+        <div class="ticket-row"><span class="k">Anslået tid</span><span class="v mono">45 min</span></div>
+        <div class="ticket-price">
+          <span class="k" style="color:var(--ink-soft); font-size:0.85rem;">Fast pris</span>
+          <b class="mono">799 kr</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="device-finder" aria-labelledby="finder-title">
+    <div class="wrap">
+      <div class="finder-panel">
+        <span class="eyebrow">Find din reparation</span>
+        <h2 id="finder-title">Hvilken enhed skal vi hjælpe med?</h2>
+        <p>Søg efter din model, eller vælg en enhedstype for at komme i gang.</p>
+        <form class="finder-search" action="#kontakt">
+          <input type="search" placeholder="Indtast mærke eller model, f.eks. iPhone 13" aria-label="Søg efter telefonmodel">
+          <button class="btn btn-primary" type="submit">Find min model</button>
+        </form>
+        <div class="category-grid" aria-label="Vælg enhedstype">
+          <button class="category-card" type="button" data-device="smartphone"><span>SMARTPHONE</span></button>
+          <button class="category-card" type="button" data-device="tablet"><span>TABLET</span></button>
+          <button class="category-card" type="button" data-device="smartwatch"><span>SMARTWATCH</span></button>
+          <button class="category-card" type="button" data-device="laptop"><span>LAPTOP</span></button>
+        </div>
+        <div class="model-options" id="modelOptions" aria-live="polite">
+          <h3 id="modelOptionsTitle">Vælg din model</h3>
+          <div class="model-buttons" id="modelButtons"></div>
+        </div>
+        <div class="repair-options" id="repairOptions" aria-live="polite">
+          <div class="repair-options-head">
+            <div><h3 id="repairOptionsTitle">Hvad skal repareres?</h3><p class="repair-options-intro" id="repairOptionsIntro"></p></div>
+            <button class="back-to-models" id="backToModels" type="button">← Skift model</button>
+          </div>
+          <div class="repair-list" id="repairList"></div>
+        </div>
+        <div class="repair-detail" id="repairDetail" aria-live="polite">
+          <div class="repair-detail-card">
+            <div>
+              <button class="repair-detail-back" id="repairDetailBack" type="button">← Tilbage til reparationer</button>
+              <h3 id="repairDetailTitle"></h3>
+              <p id="repairDetailDescription"></p>
+              <div class="repair-detail-meta"><span id="repairDetailTime"></span><span>Garanti på arbejdet</span></div>
+            </div>
+            <div class="repair-detail-aside">
+              <span class="repair-detail-price" id="repairDetailPrice"></span>
+              <button class="btn btn-primary" id="repairDetailBook" type="button">Book denne reparation</button>
+            </div>
+          </div>
+        </div>
+        <p class="finder-message" id="finderMessage">Vi fandt ikke modellen. Vælg en enhedstype eller skriv den i bookingformularen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Fordele">
+    <div class="wrap">
+      <div class="trust-item"><span class="trust-icon">✓</span><div><strong>12 måneders garanti</strong><span>På alle reparationer</span></div></div>
+      <div class="trust-item"><span class="trust-icon">★</span><div><strong>Erfarne teknikere</strong><span>Kvalitetsdele hver gang</span></div></div>
+      <div class="trust-item"><span class="trust-icon">↗</span><div><strong>Walk-in service</strong><span>Du behøver ikke booke</span></div></div>
+      <div class="trust-item"><span class="trust-icon">◷</span><div><strong>Ofte klar på 45 min</strong><span>Mens du venter</span></div></div>
+    </div>
+  </section>
+
+  <svg class="pulse-divider" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 20 H420 L440 6 L460 34 L480 20 H520 L534 2 L548 38 L562 20 H1200" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <section id="diagnose">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Diagnose</span>
+        <h2>Hvad fejler din telefon?</h2>
+        <p>Vi undersøger telefonen grundigt, før vi rører den — så du ved præcis, hvad der er galt, og hvad det koster at fikse.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8l3 4-2 2 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Knust skærm</h3>
+          <p>Vi skifter skærmen og tester touch, farver og lysstyrke, før du henter telefonen igen.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="15" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/><rect x="19.5" y="10.5" width="2" height="3" fill="currentColor"/><path d="M9 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Svagt batteri</h3>
+          <p>Holder telefonen ikke længere strøm? Vi måler batteriets sundhed og skifter det ved behov.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3c3 4 6 7.8 6 11a6 6 0 1 1-12 0c0-3.2 3-7 6-11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Vandskade</h3>
+          <p>Akut behandling af vandskadede telefoner. Jo hurtigere du kommer forbi, desto større er chancen.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M9 8h1.5L11 6h2l.5 2H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Kamera &amp; knapper</h3>
+          <p>Sløret kamera, fastsiddende knapper eller Face ID, der driller. Vi renser og udskifter komponenter.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Opladerstik &amp; lyd</h3>
+          <p>Løst stik, eller ingen lyd i højtaler og mikrofon? Vi renser og reparerer forbindelserne.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 14-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 12a8 8 0 0 1-14 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M18 4v4h-4M6 20v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Software &amp; data</h3>
+          <p>Langsom telefon eller tabte data? Vi opdaterer, nulstiller og redder dine filer skånsomt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proces" class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Behandlingsforløb</span>
+        <h2>Sådan foregår det</h2>
+        <p>Fra du afleverer telefonen, til du henter den igen — fire trin, ingen overraskelser.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-step">
+          <span class="num mono">01</span>
+          <h3>Indlevering &amp; diagnose</h3>
+          <p>Aflever telefonen i butikken, eller book online. Vi stiller diagnosen gratis, mens du venter.</p>
+        </div>
+        <div class="process-step">
+          <span class="num mono">02</span>
+          <h3>Fast pris</h3>
+          <p>Du får en fast pris, før vi rører telefonen. Sig ja, og vi går straks i gang.</p>
+        </div>
+        <div class="process-step">
+          <span class="num mono">03</span>
+          <h3>Reparation</h3>
+          <p>De fleste reparationer tager 30–60 minutter med originale eller certificerede dele.</p>
+        </div>
+        <div class="process-step">
+          <span class="num mono">04</span>
+          <h3>Afhentning &amp; garanti</h3>
+          <p>Du tester telefonen sammen med teknikeren og får 12 måneders garanti med hjem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="priser">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prisliste</span>
+        <h2>Hvad koster det?</h2>
+        <p>Priser er vejledende startpriser i kr. Den præcise pris afhænger af model og skade — du får altid et fast tilbud, før vi går i gang.</p>
+      </div>
+      <div class="price-table">
+        <div class="row">
+          <span class="label">Skærmskift, iPhone<span class="sub">Original eller certificeret skærm</span></span>
+          <span class="price">fra 799 kr</span>
+        </div>
+        <div class="row">
+          <span class="label">Skærmskift, Samsung Galaxy<span class="sub">Original eller certificeret skærm</span></span>
+          <span class="price">fra 899 kr</span>
+        </div>
+        <div class="row">
+          <span class="label">Batteriskift<span class="sub">Måling + udskiftning</span></span>
+          <span class="price">fra 499 kr</span>
+        </div>
+        <div class="row">
+          <span class="label">Opladerstik / connector<span class="sub">Rens eller udskiftning</span></span>
+          <span class="price">fra 399 kr</span>
+        </div>
+        <div class="row">
+          <span class="label">Vandskadebehandling<span class="sub">Akut rens og diagnose</span></span>
+          <span class="price">fra 299 kr</span>
+        </div>
+        <div class="row">
+          <span class="label">Software &amp; data-redning<span class="sub">Opdatering, nulstilling, databackup</span></span>
+          <span class="price">fra 299 kr</span>
+        </div>
+      </div>
+      <p class="price-note">Ring eller book en tid for et præcist tilbud til din model.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Spørgsmål</span>
+        <h2>Ofte stillede spørgsmål</h2>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary>Hvor lang tid tager en reparation?</summary>
+          <p>De fleste skærm- og batteriskift tager 30–60 minutter. Mere komplekse reparationer, som vandskade eller bundkortsfejl, kan tage 1–3 hverdage. Du får altid en realistisk tidsramme, når vi stiller diagnosen.</p>
+        </details>
+        <details>
+          <summary>Bruger I originale dele?</summary>
+          <p>Vi bruger originale eller certificerede dele af høj kvalitet og fortæller dig altid, hvilken type du får, samt hvad forskellen betyder for pris og kvalitet.</p>
+        </details>
+        <details>
+          <summary>Får jeg garanti på reparationen?</summary>
+          <p>Ja. Alle reparationer får 12 måneders garanti mod fejl i selve arbejdet og de dele, vi har brugt.</p>
+        </details>
+        <details>
+          <summary>Kan I redde en vandskadet telefon?</summary>
+          <p>Ofte, ja — men det afhænger af, hvor hurtigt telefonen bliver behandlet. Sluk telefonen med det samme, lad være med at oplade den, og kom forbi så hurtigt som muligt.</p>
+        </details>
+        <details>
+          <summary>Skal jeg booke tid på forhånd?</summary>
+          <p>Du er velkommen til bare at kigge forbi, men en booking sikrer dig kortere ventetid og en fast tid hos en tekniker.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" class="band">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <span class="eyebrow">Kontakt</span>
+          <h2 style="margin-top:12px;">Book en tid, eller kig forbi</h2>
+          <p style="color:var(--ink-soft); margin-top:12px; max-width:48ch;">Vi tager gerne imod uden booking, men skriv eller ring endelig, så vi kan reservere en tid til dig.</p>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
+              <div><b>Bramdrupdam, 6000 Kolding</b><span> 2km fra centrum</span></div>
+            </div>
+            <div class="info-item">
+              <span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 5c0 8.3 6.7 15 15 15l1-3.8-4-1.4-1.5 1.8a11.2 11.2 0 0 1-6.1-6.1l1.8-1.5L8.8 4 5 5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+              <div><b>+45 52 69 79 32</b><span>Ring i åbningstiden</span></div>
+            </div>
+            <div class="info-item">
+              <span class="ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 7l7.5 6 7.5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><b>Emranservice@outlook.com</b><span>Vi svarer inden for 24 timer</span></div>
+            </div>
+          </div>
+          <div class="hero-cta" style="margin-top:28px;">
+            <a href="tel:+4552697932" class="btn btn-primary">Ring nu</a>
+            <a href="mailto:Emranservice@outlook.com" class="btn btn-ghost">Skriv en mail</a>
+          </div>
+        </div>
+
+        <div class="booking-card">
+          <h3>Book en tid</h3>
+          <p>Udfyld formularen, så vender vi tilbage med en bekræftelse på mail.</p>
+          <form class="booking-form" action="https://formsubmit.co/Emranservice@outlook.com" method="POST">
+            <input type="hidden" name="_subject" value="Ny booking hos Telefondoktoren">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <label>Navn
+              <input type="text" name="Navn" autocomplete="name" required>
+            </label>
+            <div class="form-row">
+              <label>Telefon
+                <input type="tel" name="Telefon" autocomplete="tel" required>
+              </label>
+              <label>Din mail
+                <input type="email" name="Kundens mail" autocomplete="email" required>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>Telefonmodel
+                <input id="bookingModel" type="text" name="Telefonmodel" placeholder="F.eks. iPhone 13" required>
+              </label>
+              <label>Ønsket dag
+                <input type="date" name="Ønsket dag" required>
+              </label>
+            </div>
+            <label>Hvad skal repareres?
+              <textarea name="Beskrivelse" placeholder="Beskriv kort problemet" required></textarea>
+            </label>
+            <label class="consent">
+              <input type="checkbox" name="Samtykke" required>
+              <span>Jeg accepterer, at Telefondoktoren må kontakte mig om min booking.</span>
+            </label>
+            <button type="submit" class="btn btn-primary">Send booking</button>
+            <span class="booking-note">Din booking sendes sikkert til Emranservice@outlook.com.</span>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="footer-note">© 2026 Telefondoktoren v/ Emran Wahabzadeh — Telefonreparation med garanti.</span>
+    <div class="footer-links">
+      <a href="#diagnose">Diagnose</a>
+      <a href="#priser">Priser</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var introScreen = document.getElementById('introScreen');
+    var introSkip = document.getElementById('introSkip');
+    document.body.style.overflow = 'hidden';
+    function closeIntro(){
+      if(!introScreen || introScreen.classList.contains('is-hidden')) return;
+      introScreen.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      window.setTimeout(function(){ introScreen.setAttribute('aria-hidden', 'true'); }, 900);
+    }
+    if(introSkip) introSkip.addEventListener('click', closeIntro);
+    window.setTimeout(closeIntro, 1700);
+
+    var toggle = document.getElementById('menuToggle');
+    var nav = document.getElementById('mobileNav');
+    if(toggle && nav){
+      toggle.addEventListener('click', function(){
+        var open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          nav.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    var repairData = [
+      { name:'Skærm', price:'fra 649 kr', time:'30 minutter', description:'Revnet skærm, problemer med touch eller farver.', booking:'Skærmskift' },
+      { name:'Batteri', price:'fra 499 kr', time:'30 minutter', description:'Batteriet holder kort tid, eller telefonen slukker.', booking:'Batteriskift' },
+      { name:'Bagside', price:'fra 799 kr', time:'45 minutter', description:'Ødelagt eller beskadiget bagside på telefonen.', booking:'Udskiftning af bagside' },
+      { name:'Ladestik', price:'fra 599 kr', time:'45 minutter', description:'Telefonen oplader ikke eller forbindelsen er ustabil.', booking:'Reparation af ladestik' },
+      { name:'Kamera', price:'fra 699 kr', time:'45 minutter', description:'Kameraet er sløret, beskadiget eller kan ikke fokusere.', booking:'Kamerareparation' },
+      { name:'Højttaler og mikrofon', price:'fra 499 kr', time:'30 minutter', description:'Problemer med lyd, opkald eller mikrofon.', booking:'Reparation af lyd' },
+      { name:'Vandskade', price:'fra 299 kr', time:'Samme dag', description:'Akut rensning og diagnose efter væskeskade.', booking:'Vandskadebehandling' },
+      { name:'Software og data', price:'fra 299 kr', time:'Efter aftale', description:'Hjælp med langsom telefon, opdatering eller data.', booking:'Software og data' }
+    ];
+    var modelData = {
+      smartphone: [
+        { name:'iPhone 15 Pro Max', brand:'Apple', image:'https://media.power-cdn.net/images/h-72260fadca4433c76876eeada051f7b9/products/2668264/2668264_10_600x600_t_g.webp' },
+        { name:'iPhone 15 Pro', brand:'Apple', image:'https://media.power-cdn.net/images/h-72260fadca4433c76876eeada051f7b9/products/2668264/2668264_10_600x600_t_g.webp' },
+        { name:'iPhone 15', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_15.jpg?width=320' },
+        { name:'iPhone 14 Pro', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_14_Pro.jpg?width=320' },
+        { name:'iPhone 14', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_14.jpg?width=320' },
+        { name:'iPhone 13 Pro', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_13.jpg?width=320' },
+        { name:'iPhone 13', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_13.jpg?width=320' },
+        { name:'iPhone 12', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_12.jpg?width=320' },
+        { name:'iPhone 11', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_11.jpg?width=320' },
+        { name:'iPhone XS', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_XS.jpg?width=320' },
+        { name:'iPhone X', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_X.jpg?width=320' },
+        { name:'iPhone 8', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_8.jpg?width=320' },
+        { name:'iPhone 7', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_7.jpg?width=320' },
+        { name:'iPhone SE (2022)', brand:'Apple', image:'https://commons.wikimedia.org/wiki/Special:FilePath/IPhone_SE_2022.jpg?width=320' },
+        { name:'Galaxy S24 Ultra', brand:'Samsung', image:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80' },
+        { name:'Galaxy S23 Ultra', brand:'Samsung', image:'https://images.unsplash.com/photo-1610792516307-ea5acd9c3b3d?auto=format&fit=crop&w=500&q=80' },
+        { name:'Pixel 9 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_9_Pro.jpg?width=320' },
+        { name:'Pixel 8 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_8_Pro.jpg?width=320' },
+        { name:'Pixel 7 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_7_Pro.jpg?width=320' },
+        { name:'Pixel 6 Pro', brand:'Google', image:'https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pixel_6_Pro.jpg?width=320' },
+        { name:'OnePlus 12', brand:'OnePlus', image:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80' },
+        { name:'Huawei P60 Pro', brand:'Huawei', image:'https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?auto=format&fit=crop&w=500&q=80' },
+        { name:'Anden smartphone', brand:'Fortæl os din model', image:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80' }
+      ],
+      tablet: [
+        { name:'iPad Pro 13"', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/IPad_Pro_2024.png/320px-IPad_Pro_2024.png' },
+        { name:'iPad Air', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/IPad_Air_2022.png/320px-IPad_Air_2022.png' },
+        { name:'iPad 10. generation', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/IPad_10th_generation.png/320px-IPad_10th_generation.png' },
+        { name:'Galaxy Tab S9', brand:'Samsung', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Samsung_Galaxy_Tab_S9.png/320px-Samsung_Galaxy_Tab_S9.png' }
+      ],
+      smartwatch: [
+        { name:'Apple Watch Series 10', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Apple_Watch_Series_10.png/320px-Apple_Watch_Series_10.png' },
+        { name:'Apple Watch Series 9', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Apple_Watch_Series_9.png/320px-Apple_Watch_Series_9.png' },
+        { name:'Galaxy Watch 7', brand:'Samsung', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Samsung_Galaxy_Watch_7.png/320px-Samsung_Galaxy_Watch_7.png' }
+      ],
+      laptop: [
+        { name:'MacBook Air M3', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/MacBook_Air_M3.png/320px-MacBook_Air_M3.png' },
+        { name:'MacBook Pro M3', brand:'Apple', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/MacBook_Pro_M3.png/320px-MacBook_Pro_M3.png' },
+        { name:'Lenovo ThinkPad', brand:'Lenovo', image:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/ThinkPad_T480s.jpg/320px-ThinkPad_T480s.jpg' }
+      ]
+    };
+    var categoryLabels = { smartphone:'Smartphone', tablet:'Tablet', smartwatch:'Smartwatch', laptop:'Laptop' };
+    var modelOptions = document.getElementById('modelOptions');
+    var modelOptionsTitle = document.getElementById('modelOptionsTitle');
+    var modelButtons = document.getElementById('modelButtons');
+    var repairOptions = document.getElementById('repairOptions');
+    var repairOptionsTitle = document.getElementById('repairOptionsTitle');
+    var repairOptionsIntro = document.getElementById('repairOptionsIntro');
+    var repairList = document.getElementById('repairList');
+    var backToModels = document.getElementById('backToModels');
+    var repairDetail = document.getElementById('repairDetail');
+    var repairDetailTitle = document.getElementById('repairDetailTitle');
+    var repairDetailDescription = document.getElementById('repairDetailDescription');
+    var repairDetailTime = document.getElementById('repairDetailTime');
+    var repairDetailPrice = document.getElementById('repairDetailPrice');
+    var repairDetailBook = document.getElementById('repairDetailBook');
+    var repairDetailBack = document.getElementById('repairDetailBack');
+    var finderMessage = document.getElementById('finderMessage');
+    var bookingModel = document.getElementById('bookingModel');
+    var finderForm = document.querySelector('.finder-search');
+    var phonePhotos = [
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80',
+      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80',
+      'https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?auto=format&fit=crop&w=500&q=80',
+      'https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=500&q=80',
+      'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80'
+    ];
+
+    function showModels(device){
+      modelOptionsTitle.textContent = 'Vælg din ' + categoryLabels[device].toLowerCase();
+      modelButtons.innerHTML = '';
+      modelData[device].forEach(function(model, index){
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'model-button';
+        var image = document.createElement('img');
+        image.src = model.image;
+        image.addEventListener('error', function(){
+          if(image.src !== phonePhotos[index % phonePhotos.length]){ image.src = phonePhotos[index % phonePhotos.length]; }
+        });
+        image.alt = model.name;
+        image.loading = 'lazy';
+        var label = document.createElement('span');
+        label.className = 'model-button-label';
+        label.appendChild(document.createTextNode(model.name));
+        var brand = document.createElement('small');
+        brand.textContent = model.brand;
+        label.appendChild(brand);
+        button.appendChild(image);
+        button.appendChild(label);
+        button.addEventListener('click', function(){
+          showRepairs(model);
+        });
+        modelButtons.appendChild(button);
+      });
+      finderMessage.classList.remove('open');
+      modelOptions.classList.add('open');
+      repairOptions.classList.remove('open');
+      repairDetail.classList.remove('open');
+      modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    function showRepairs(model){
+      repairOptionsTitle.textContent = 'Hvad skal repareres på din ' + model.name + '?';
+      repairOptionsIntro.textContent = 'Vælg en reparation for at se næste trin. Priserne er vejledende startpriser.';
+      repairList.innerHTML = '';
+      repairData.forEach(function(repair){
+        var option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'repair-option';
+        option.innerHTML = '<span class="repair-option-top"><strong>' + repair.name + '</strong><span class="repair-price">' + repair.price + '</span></span><span class="repair-time">' + repair.time + '</span><p>' + repair.description + '</p><small>Vælg reparation →</small>';
+        option.addEventListener('click', function(){
+          var modelParam = encodeURIComponent(model.name);
+          var brandParam = encodeURIComponent(model.brand);
+          var repairParam = encodeURIComponent(repair.name);
+          window.location.href = 'reparation.html?model=' + modelParam + '&brand=' + brandParam + '&repair=' + repairParam;
+        });
+        repairList.appendChild(option);
+      });
+      repairOptions.classList.add('open');
+      repairDetail.classList.remove('open');
+      repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    function showRepairDetail(model, repair, updateUrl){
+      repairDetailTitle.textContent = repair.name + ' på ' + model.name;
+      repairDetailDescription.textContent = repair.description + ' Vi undersøger altid enheden først og giver dig den endelige pris, før vi går i gang.';
+      repairDetailTime.textContent = repair.time;
+      repairDetailPrice.textContent = repair.price;
+      repairDetail.dataset.model = model.name;
+      repairDetail.dataset.repair = repair.name;
+      if(updateUrl){
+        var slugModel = model.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        var slugRepair = repair.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        history.pushState({}, '', '?selected=repairs/' + encodeURIComponent(model.brand) + '/' + slugModel + '/' + slugRepair);
+      }
+      repairOptions.classList.remove('open');
+      repairDetail.classList.add('open');
+      repairDetail.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    repairDetailBook.addEventListener('click', function(){
+      var selectedModel = repairDetail.dataset.model;
+      var selectedRepair = repairData.find(function(repair){ return repair.name === repairDetail.dataset.repair; });
+      bookingModel.value = selectedModel;
+      document.querySelector('textarea[name="Beskrivelse"]').value = selectedRepair.booking + ' på ' + selectedModel + '. ';
+      document.getElementById('kontakt').scrollIntoView({ behavior:'smooth' });
+    });
+
+    repairDetailBack.addEventListener('click', function(){
+      repairDetail.classList.remove('open');
+      repairOptions.classList.add('open');
+      repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    });
+
+    backToModels.addEventListener('click', function(){
+      repairOptions.classList.remove('open');
+      modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    });
+
+    document.querySelectorAll('.category-card').forEach(function(card){
+      card.addEventListener('click', function(){ showModels(card.getAttribute('data-device')); });
+    });
+
+    if(finderForm){
+      finderForm.addEventListener('submit', function(event){
+        event.preventDefault();
+        var query = finderForm.querySelector('input').value.trim().toLowerCase();
+        var match = Object.keys(modelData).find(function(device){
+          return modelData[device].some(function(model){ return (model.name + ' ' + model.brand).toLowerCase().indexOf(query) !== -1; });
+        });
+        if(query && match){
+          showModels(match);
+          Array.prototype.forEach.call(modelButtons.children, function(button){
+            if(button.textContent.toLowerCase().indexOf(query) !== -1){ button.focus(); }
+          });
+        } else {
+          modelOptions.classList.remove('open');
+          finderMessage.classList.add('open');
+          document.getElementById('kontakt').scrollIntoView({ behavior:'smooth' });
+        }
+      });
+    }
+
+    var selectedRepair = new URLSearchParams(window.location.search).get('selected');
+    if(selectedRepair){
+      var selectedParts = selectedRepair.split('/');
+      if(selectedParts[0].toLowerCase() === 'repairs' && selectedParts.length >= 3){
+        var selectedModel = decodeURIComponent(selectedParts.slice(2).join('/')).replace(/-/g, ' ');
+        selectedModel = selectedModel.replace(/\b\w/g, function(letter){ return letter.toUpperCase(); });
+        modelOptionsTitle.textContent = 'Valgt model';
+        modelButtons.innerHTML = '<p>Du har valgt ' + selectedModel + '</p>';
+        modelOptions.classList.add('open');
+        showRepairs({ name:selectedModel, brand:decodeURIComponent(selectedParts[1]) });
+        if(selectedParts.length >= 4){
+          var selectedRepairSlug = selectedParts[3].toLowerCase();
+          var directRepair = repairData.find(function(repair){
+            return repair.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === selectedRepairSlug;
+          });
+          if(directRepair){ showRepairDetail({ name:selectedModel, brand:decodeURIComponent(selectedParts[1]) }, directRepair, false); }
+        }
+      }
+    }
+  })();
+</script>
+</body>
+</html>

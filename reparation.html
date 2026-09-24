@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reparation | Telefondoktoren</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  :root{--paper:#f7f8fb;--card:#fff;--ink:#182033;--soft:#667085;--line:#e4e8f0;--blue:#2a63d4;--pink:#ef4b72;}
+  *{box-sizing:border-box} html,body{margin:0;min-height:100%;} body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;line-height:1.5;}
+  .topbar{background:#202b55;color:#dfe7ff;font-size:.8rem;padding:9px 24px;display:flex;justify-content:space-between;gap:16px;}
+  .topbar a{color:#fff;text-decoration:none;font-weight:600}.wrap{max-width:1000px;margin:auto;padding:0 24px}.header{background:#fff;border-bottom:1px solid var(--line);}.header .wrap{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;font-size:1.1rem;font-weight:700;text-decoration:none}.brand-mark{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#202b55;color:#fff}.header-cta{display:flex;gap:10px;align-items:center}.btn{border:0;border-radius:5px;padding:12px 18px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}.btn-primary{background:var(--pink);color:#fff}.btn-ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+  main{padding:58px 0 80px}.crumb{color:var(--blue);font-size:.82rem;font-weight:600;text-decoration:none}.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;margin-top:18px}.detail-card,.booking-card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:28px;box-shadow:0 18px 45px -30px rgba(34,47,82,.4)}.eyebrow{color:var(--pink);font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}.detail-card h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:14px 0 12px;color:#202b55}.detail-card p{color:var(--soft);max-width:54ch}.meta{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.meta span{background:#edf3ff;color:#2470ba;border-radius:5px;padding:8px 11px;font-size:.82rem;font-weight:600}.price{display:block;color:#202b55;font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;margin-top:8px}.detail-card .btn{display:inline-flex;margin-top:24px}.booking-card h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.25rem;margin:0 0 6px}.booking-card>p{color:var(--soft);font-size:.88rem;margin:0 0 18px}.booking-form{display:grid;gap:12px}.booking-form label{display:grid;gap:5px;font-size:.82rem;font-weight:600}.booking-form input,.booking-form textarea{width:100%;border:1px solid #c8d2e3;border-radius:6px;background:#fff;color:var(--ink);font:inherit;padding:10px 11px}.booking-form textarea{min-height:86px;resize:vertical}.booking-form input:focus,.booking-form textarea:focus{outline:2px solid var(--pink);outline-offset:1px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.consent{display:flex!important;grid-template-columns:none!important;align-items:flex-start;gap:8px;color:var(--soft);font-weight:400!important;line-height:1.35}.consent input{width:16px!important;flex:none;margin-top:3px;accent-color:var(--pink)}.booking-form .btn{width:100%;}.note{text-align:center;color:var(--soft);font-size:.72rem}.back{text-align:center;display:block;color:var(--blue);font-size:.82rem;margin-top:20px;text-decoration:none}
+  @media(max-width:700px){.topbar{justify-content:center;flex-wrap:wrap}.header .wrap{height:62px}.header-cta .btn-ghost{display:none}.layout{grid-template-columns:1fr}.detail-card,.booking-card{padding:22px}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="topbar"><span>Professionel mobilreparation i Kolding</span><a href="tel:+4552697932">+45 52 69 79 32</a></div>
+  <header class="header"><div class="wrap"><a class="brand" href="index.html"><span class="brand-mark">♥</span>Telefondoktoren</a><div class="header-cta"><a class="btn btn-ghost" href="index.html">Tilbage til modeller</a><a class="btn btn-primary" href="#booking">Book en tid</a></div></div></header>
+  <main><div class="wrap"><a class="crumb" href="index.html">← Alle modeller</a><div class="layout"><section class="detail-card"><span class="eyebrow">Reparation i Kolding</span><h1 id="title">Reparation</h1><p id="description"></p><div class="meta"><span id="time"></span><span>12 måneders garanti</span></div><div class="price" id="price"></div><a class="btn btn-primary" href="#booking">Book denne reparation</a></section><section class="booking-card" id="booking"><h2>Book reparationen</h2><p>Udfyld formularen, så vender vi tilbage med en bekræftelse.</p><form class="booking-form" action="https://formsubmit.co/Emranservice@outlook.com" method="POST"><input type="hidden" name="_subject" value="Ny reparationsbooking hos Telefondoktoren"><input type="hidden" name="_template" value="table"><input type="hidden" name="Model" id="modelInput"><input type="hidden" name="Reparation" id="repairInput"><label>Navn<input type="text" name="Navn" autocomplete="name" required></label><div class="form-row"><label>Telefon<input type="tel" name="Telefon" autocomplete="tel" required></label><label>Din mail<input type="email" name="Kundens mail" autocomplete="email" required></label></div><label>Ønsket dag<input type="date" name="Ønsket dag" required></label><label>Ekstra besked<textarea name="Besked" placeholder="Fortæl kort om problemet"></textarea></label><label class="consent"><input type="checkbox" name="Samtykke" required><span>Jeg accepterer, at Telefondoktoren må kontakte mig om min booking.</span></label><button class="btn btn-primary" type="submit">Send booking</button><span class="note">Din booking sendes til Emranservice@outlook.com.</span></form></section></div><a class="back" href="index.html">Tilbage til forsiden</a></div></main>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var model = params.get('model') || 'din telefon';
+  var repair = params.get('repair') || 'Reparation';
+  var repairs = {
+    'Skærm': { price:'fra 649 kr', time:'30 minutter', description:'Revnet skærm, problemer med touch eller farver.' },
+    'Batteri': { price:'fra 499 kr', time:'30 minutter', description:'Batteriet holder kort tid, eller telefonen slukker.' },
+    'Bagside': { price:'fra 799 kr', time:'45 minutter', description:'Ødelagt eller beskadiget bagside på telefonen.' },
+    'Ladestik': { price:'fra 599 kr', time:'45 minutter', description:'Telefonen oplader ikke eller forbindelsen er ustabil.' },
+    'Kamera': { price:'fra 699 kr', time:'45 minutter', description:'Kameraet er sløret, beskadiget eller kan ikke fokusere.' },
+    'Højttaler og mikrofon': { price:'fra 499 kr', time:'30 minutter', description:'Problemer med lyd, opkald eller mikrofon.' },
+    'Vandskade': { price:'fra 299 kr', time:'Samme dag', description:'Akut rensning og diagnose efter væskeskade.' },
+    'Software og data': { price:'fra 299 kr', time:'Efter aftale', description:'Hjælp med langsom telefon, opdatering eller data.' }
+  };
+  var data = repairs[repair] || repairs['Skærm'];
+  document.title = repair + ' på ' + model + ' | Telefondoktoren';
+  document.getElementById('title').textContent = repair + ' på ' + model;
+  document.getElementById('description').textContent = data.description + ' Vi undersøger altid enheden først og giver dig den endelige pris, før vi går i gang.';
+  document.getElementById('time').textContent = data.time;
+  document.getElementById('price').textContent = data.price;
+  document.getElementById('modelInput').value = model;
+  document.getElementById('repairInput').value = repair;
+})();
+</script>
+</body>
+</html>
