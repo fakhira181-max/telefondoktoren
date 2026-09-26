@@ -543,6 +543,20 @@
   .hero-cta{ justify-content:center; }
   .hero .ticket{ display:none; }
   .hero .stat-row{ justify-content:center; max-width:760px; margin-inline:auto; }
+  .brand-hero{ padding-block:62px 54px; }
+  .brand-hero h1{ font-size:2.6rem; }
+  .brand-options{ display:flex; justify-content:center; align-items:stretch; flex-wrap:wrap; gap:12px 24px; margin:28px auto 0; }
+  .brand-option{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; width:154px; min-height:82px; padding:12px 10px; border:0; border-bottom:2px solid transparent; background:transparent; color:#202b55; font:inherit; cursor:pointer; }
+  .brand-option:hover,.brand-option:focus-visible{ border-bottom-color:var(--accent); outline:none; }
+  .brand-logo{ width:34px; height:34px; object-fit:contain; }
+  .brand-wordmark{ font-size:1.35rem; font-weight:700; line-height:1.2; }
+  .brand-option small{ color:var(--ink-soft); font-size:.84rem; }
+  @media (max-width:520px){
+    .brand-hero{ padding-block:44px 38px; }
+    .brand-hero h1{ font-size:2rem; }
+    .brand-options{ gap:8px; }
+    .brand-option{ width:calc(50% - 8px); min-height:74px; }
+  }
   .eyebrow{ color:var(--accent); }
   .eyebrow::before{ background:var(--accent); }
   .btn{ border-radius:5px; padding:12px 20px; }
@@ -692,35 +706,23 @@
 </header>
 
 <main id="top">
-  <section class="hero">
+  <section class="hero brand-hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Telefonklinik &middot; Kolding</span>
-        <h1>Din skærm er knust.<br>Ikke din dag.</h1>
-        <p class="lede">Vi stiller diagnosen med det samme og reparerer de fleste skærme og batterier, mens du venter. Fast pris, originale dele og 12 måneders garanti på alt arbejde.</p>
+        <span class="eyebrow">Telefonreparation &middot; Kolding</span>
+        <h1>Vælg din enhed</h1>
+        <p class="lede">Vælg mærke for at se modeller og reparationer.</p>
+        <div class="brand-options" aria-label="Vælg mærke">
+          <button class="brand-option" type="button" data-device="smartphone" data-brand="Apple"><img class="brand-logo" src="https://cdn.simpleicons.org/apple/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Apple</span><small>iPhone</small></button>
+          <button class="brand-option" type="button" data-device="tablet" data-brand="Apple"><img class="brand-logo" src="https://cdn.simpleicons.org/apple/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Apple</span><small>iPad</small></button>
+          <button class="brand-option" type="button" data-device="smartphone" data-brand="Samsung"><img class="brand-logo" src="https://cdn.simpleicons.org/samsung/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">SAMSUNG</span><small>Galaxy</small></button>
+          <button class="brand-option" type="button" data-device="smartphone" data-brand="Huawei"><img class="brand-logo" src="https://cdn.simpleicons.org/huawei/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">HUAWEI</span><small>Telefoner</small></button>
+          <button class="brand-option" type="button" data-device="smartphone" data-brand="Google"><img class="brand-logo" src="https://cdn.simpleicons.org/google/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Google</span><small>Pixel</small></button>
+          <button class="brand-option" type="button" data-device="smartphone" data-brand="OnePlus"><img class="brand-logo" src="https://cdn.simpleicons.org/oneplus/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">OnePlus</span><small>Telefoner</small></button>
+        </div>
         <div class="hero-cta">
           <a href="#kontakt" class="btn btn-primary">Book en tid</a>
           <a href="tel:+4552697932" class="btn btn-ghost">Ring: +45 52 69 79 32</a>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><b class="mono">30 min</b><span>Ventetid fra</span></div>
-          <div class="stat"><b class="mono">12 mdr.</b><span>Garanti på arbejdet</span></div>
-          <div class="stat"><b class="mono">4,9/5</b><span>Gennemsnitlig vurdering</span></div>
-        </div>
-      </div>
-
-      <div class="ticket" aria-hidden="true">
-        <div class="ticket-head">
-          <b>Reparationsseddel</b>
-          <span class="mono">#0148</span>
-        </div>
-        <div class="ticket-row"><span class="k">Model</span><span class="v">iPhone 13</span></div>
-        <div class="ticket-row"><span class="k">Fejl</span><span class="v">Knust skærm</span></div>
-        <div class="ticket-row"><span class="k">Status</span><span class="v"><span class="status-pill">Under behandling</span></span></div>
-        <div class="ticket-row"><span class="k">Anslået tid</span><span class="v mono">45 min</span></div>
-        <div class="ticket-price">
-          <span class="k" style="color:var(--ink-soft); font-size:0.85rem;">Fast pris</span>
-          <b class="mono">799 kr</b>
         </div>
       </div>
     </div>
@@ -1134,10 +1136,10 @@
       'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80'
     ];
 
-    function showModels(device){
-      modelOptionsTitle.textContent = 'Vælg din ' + categoryLabels[device].toLowerCase();
+    function showModels(device, brand){
+      modelOptionsTitle.textContent = brand ? 'Vælg din ' + categoryLabels[device].toLowerCase() + ' fra ' + brand : 'Vælg din ' + categoryLabels[device].toLowerCase();
       modelButtons.innerHTML = '';
-      modelData[device].forEach(function(model, index){
+      modelData[device].filter(function(model){ return !brand || model.brand === brand; }).forEach(function(model, index){
         var button = document.createElement('button');
         button.type = 'button';
         button.className = 'model-button';
@@ -1228,6 +1230,11 @@
 
     document.querySelectorAll('.category-card').forEach(function(card){
       card.addEventListener('click', function(){ showModels(card.getAttribute('data-device')); });
+    });
+    document.querySelectorAll('.brand-option').forEach(function(button){
+      button.addEventListener('click', function(){
+        showModels(button.getAttribute('data-device'), button.getAttribute('data-brand'));
+      });
     });
 
     if(finderForm){
