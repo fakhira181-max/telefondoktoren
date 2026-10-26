@@ -708,39 +708,76 @@
     .section-head h2{ font-size:1.7rem; }
   }
   @media (max-width:520px){ .header-actions .btn-primary{ display:none; } }
+  .home-page #diagnose,
+  .home-page #proces,
+  .home-page #priser,
+  .home-page #faq,
+  .home-page #kontakt,
+  .home-page .pulse-divider,
+  .home-page .brand-options,
+  .home-page #brandResults{ display:none !important; }
+  .home-page .hero{ padding-block:54px; }
+  .home-page .hero .wrap{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr); gap:48px; align-items:center; }
+  .home-page .brand-hero .wrap > div{ max-width:none; }
+  .home-page .brand-hero h1{ max-width:620px; font-size:clamp(2.5rem,4vw,4rem); }
+  .home-page .hero-cta{ justify-content:flex-start; margin-top:24px; }
+  .home-page .hero-cta .btn-ghost:not(.phone-cta){ display:none; }
+  .home-page .home-visual{ margin:0; }
+  .home-page .home-visual img{ display:block; width:100%; aspect-ratio:1.15; object-fit:cover; border-radius:6px; }
+  .home-page .proof-points{ display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:22px; color:var(--ink-soft); font-size:.88rem; }
+  .home-page .proof-points span::before{ content:"✓"; margin-right:7px; color:var(--mint); font-weight:700; }
+  .home-page .trust-strip{ background:#315344; color:#fff; padding-block:20px; }
+  .home-page .trust-strip .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .home-page .trust-item{ display:flex; align-items:center; gap:10px; }
+  .home-page .trust-item strong{ display:block; font-size:.9rem; }
+  .home-page .trust-item span{ color:#d6e2da; font-size:.78rem; }
+  .home-page .trust-icon{ display:grid; place-items:center; width:32px; height:32px; border:1px solid #769083; border-radius:50%; flex:none; }
+  @media (max-width:800px){
+    .home-page .hero .wrap{ grid-template-columns:1fr; gap:28px; }
+    .home-page .home-visual{ order:0; }
+    .home-page .home-visual img{ max-height:320px; aspect-ratio:1.7; }
+    .home-page .trust-strip .wrap{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:520px){
+    .home-page .hero{ padding-block:28px; }
+    .home-page .hero .wrap{ gap:18px; }
+    .home-page .home-visual img{ aspect-ratio:1.4; }
+    .home-page .proof-points{ display:grid; gap:6px; }
+    .home-page .trust-strip .wrap{ gap:14px 10px; }
+  }
 </style>
 </head>
-<body>
+<body class="home-page">
 
 <header class="site-header">
   <div class="topbar"><div class="wrap"><span>Mobilreparation i Kolding</span><span>Ring til os: <a href="tel:+4552697932">+45 52 69 79 32</a></span></div></div>
   <div class="wrap">
-    <a href="#top" class="brand">
+    <a href="index.html" class="brand">
       <span class="brand-mark" aria-hidden="true">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3.2-8-7.1-8-11.2C4 6.6 6.5 4 9.6 4c1.6 0 2.9.8 3.4 1.8C13.5 4.8 14.8 4 16.4 4 19.5 4 22 6.6 22 9.8 22 13.9 16 17.8 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
       </span>
       Telefondoktoren
     </a>
     <nav class="primary-nav" aria-label="Hovedmenu">
-      <a href="#diagnose">Reparationer</a>
-      <a href="#proces">Sådan foregår det</a>
-      <a href="#priser">Priser</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="reparationer.html">Reparationer</a>
+      <a href="proces.html">Sådan foregår det</a>
+      <a href="priser.html">Priser</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
     <div class="header-actions">
       <a href="tel:+4552697932" class="btn btn-ghost">+45 52 69 79 32</a>
-      <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+      <a href="kontakt.html" class="btn btn-primary">Book en tid</a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Åbn menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a href="#diagnose">Reparationer</a>
-    <a href="#proces">Sådan foregår det</a>
-    <a href="#priser">Priser</a>
-    <a href="#kontakt">Kontakt</a>
-    <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+    <a href="reparationer.html">Reparationer</a>
+    <a href="proces.html">Sådan foregår det</a>
+    <a href="priser.html">Priser</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="kontakt.html" class="btn btn-primary">Book en tid</a>
   </div>
 </header>
 
@@ -749,8 +786,8 @@
     <div class="wrap">
       <div>
         <span class="eyebrow">Telefondoktoren · Kolding</span>
-        <h1>Få mobilen repareret i Kolding</h1>
-        <p class="lede">Vælg mærke og model, så finder du reparationer og vejledende priser.</p>
+        <h1>Telefonreparation i Kolding</h1>
+        <p class="lede">Få mobilen hurtigt tilbage i hverdagen. Vi undersøger fejlen, aftaler prisen med dig og reparerer med 12 måneders garanti.</p>
         <div class="brand-options" aria-label="Vælg mærke">
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Apple"><img class="brand-logo" src="https://cdn.simpleicons.org/apple/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Apple</span><small>iPhone</small></button>
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Samsung"><img class="brand-logo" src="https://cdn.simpleicons.org/samsung/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">SAMSUNG</span><small>Galaxy</small></button>
@@ -787,10 +824,12 @@
           <p class="finder-message" id="finderMessage">Vi fandt ikke modellen. Vælg en enhedstype eller skriv den i bookingformularen.</p>
         </div>
         <div class="hero-cta">
-          <a href="#priser" class="btn btn-primary">Se priser</a>
-          <a href="tel:+4552697932" class="btn btn-ghost">Ring: +45 52 69 79 32</a>
+          <a href="reparationer.html" class="btn btn-primary">Find din reparation</a>
+          <a href="tel:+4552697932" class="btn btn-ghost phone-cta">Ring 52 69 79 32</a>
         </div>
+        <div class="proof-points"><span>Fast pris før start</span><span>12 måneders garanti</span><span>Walk-in er velkommen</span></div>
       </div>
+      <figure class="home-visual"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Smartphone klar til brug" width="1200" height="1044" fetchpriority="high"></figure>
     </div>
   </section>
 
@@ -1039,9 +1078,9 @@
   <div class="wrap">
     <span class="footer-note">© 2026 Telefondoktoren v/ Emran Wahabzadeh — Telefonreparation med garanti.</span>
     <div class="footer-links">
-      <a href="#diagnose">Diagnose</a>
-      <a href="#priser">Priser</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="reparationer.html">Reparationer</a>
+      <a href="priser.html">Priser</a>
+      <a href="kontakt.html">Kontakt</a>
     </div>
   </div>
 </footer>
