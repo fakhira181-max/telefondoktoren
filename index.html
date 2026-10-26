@@ -545,6 +545,7 @@
   .hero .stat-row{ justify-content:center; max-width:760px; margin-inline:auto; }
   .brand-hero{ padding-block:62px 54px; }
   .brand-hero h1{ font-size:2.6rem; }
+  #proces,
   .brand-options{ display:flex; justify-content:center; align-items:stretch; flex-wrap:wrap; gap:12px 24px; margin:28px auto 0; }
   .brand-option{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; width:154px; min-height:82px; padding:12px 10px; border:0; border-bottom:2px solid transparent; background:transparent; color:#202b55; font:inherit; cursor:pointer; }
   .brand-option:hover,.brand-option:focus-visible{ border-bottom-color:var(--accent); outline:none; }
@@ -562,8 +563,8 @@
   .btn{ border-radius:5px; padding:12px 20px; }
   .btn-primary{ background:var(--accent); box-shadow:0 8px 18px -10px rgba(239,75,114,.9); }
   .btn-ghost{ background:#fff; }
-  .pulse-divider{ display:none; }
   .device-finder{ padding-block:16px 70px; background:#f7f8fb; }
+  .brand-results{ margin-top:18px; }
   .finder-panel{ background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:0 20px 42px -28px rgba(34,47,82,.38); padding:28px; text-align:center; }
   .finder-panel h2{ color:#202b55; font-size:clamp(1.6rem,2vw,2.2rem); }
   .finder-panel p{ color:var(--ink-soft); margin:9px auto 20px; }
@@ -635,46 +636,84 @@
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --paper:#f7f8fb;
+      --paper:#f7f8f5;
       --paper-raised:#ffffff;
-      --ink:#182033;
-      --ink-soft:#667085;
-      --line:#e4e8f0;
-      --accent:#ef4b72;
+      --ink:#202824;
+      --ink-soft:#5d6962;
+      --line:#dce2dc;
+      --accent:#b64d38;
       --accent-ink:#ffffff;
-      --mint:#2a63d4;
-      --mint-soft:#edf3ff;
-      --shadow:0 16px 40px -24px rgba(34,47,82,.34);
+      --mint:#356b56;
+      --mint-soft:#e9f0e9;
+      --shadow:0 8px 24px -18px rgba(32,40,36,.35);
     }
   }
-  .intro-screen{ position:fixed; inset:0; z-index:100; display:grid; place-items:center; background:#202b55; color:#fff; transform:translateX(0); transition:transform .9s cubic-bezier(.77,0,.18,1); }
-  .intro-screen.is-hidden{ transform:translateX(-100%); pointer-events:none; }
-  .intro-content{ text-align:center; padding:24px; animation:intro-rise .8s ease both; }
-  .intro-mark{ width:68px; height:68px; margin:0 auto 22px; display:grid; place-items:center; border-radius:50%; background:var(--pink); color:#fff; box-shadow:0 0 0 10px rgba(239,75,114,.14); }
-  .intro-content h1{ color:#fff; font-size:clamp(2rem,5vw,3.8rem); margin:0; }
-  .intro-content p{ color:#dfe7ff; margin:12px 0 28px; font-size:1rem; }
-  .intro-line{ width:96px; height:3px; margin:auto; border-radius:3px; background:var(--pink); animation:intro-line 1.7s ease-in-out infinite; }
-  .intro-skip{ position:absolute; right:24px; bottom:22px; border:1px solid rgba(255,255,255,.35); border-radius:5px; background:transparent; color:#fff; padding:9px 13px; font:inherit; font-size:.8rem; cursor:pointer; }
-  .intro-skip:hover,.intro-skip:focus-visible{ border-color:#fff; outline:2px solid rgba(255,255,255,.3); outline-offset:2px; }
-  @keyframes intro-rise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
-  @keyframes intro-line{ 0%,100%{ transform:scaleX(.6); opacity:.6; } 50%{ transform:scaleX(1); opacity:1; } }
-  @media (prefers-reduced-motion:reduce){ .intro-screen{ transition:none; } .intro-content,.intro-line{ animation:none; } }
+  :root{
+    --paper:#f7f8f5;
+    --paper-raised:#ffffff;
+    --ink:#202824;
+    --ink-soft:#5d6962;
+    --line:#dce2dc;
+    --accent:#b64d38;
+    --accent-ink:#ffffff;
+    --mint:#356b56;
+    --mint-soft:#e9f0e9;
+    --shadow:0 8px 24px -18px rgba(32,40,36,.35);
+  }
+  body{ background:#fff; font-family:'IBM Plex Sans',sans-serif; }
+  h1,h2,h3{ font-family:'IBM Plex Sans',sans-serif; letter-spacing:0; }
+  .site-header{ background:#fff; backdrop-filter:none; }
+  .topbar{ background:#315344; color:#f2f5f1; }
+  .topbar a{ color:#fff; }
+  .brand-mark{ background:#315344; border-radius:6px; }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .brand-mark{ background:#315344; color:#fff; } }
+  :root[data-theme="dark"] .brand-mark{ background:#315344; color:#fff; }
+  nav.primary-nav a{ color:#46554c; }
+  nav.primary-nav a:hover{ color:var(--accent); }
+  .hero{ padding-block:54px 48px; background:#f5f7f3; }
+  .hero .wrap{ display:block; text-align:left; }
+  .brand-hero .wrap > div{ max-width:900px; }
+  .brand-hero h1{ max-width:680px; margin:12px 0; font-size:3rem; color:var(--ink); }
+  .hero .lede{ max-width:58ch; margin:0; font-size:1.05rem; }
+  .eyebrow{ color:var(--mint); font-family:'IBM Plex Sans',sans-serif; font-size:.85rem; font-weight:600; letter-spacing:0; text-transform:none; }
+  .eyebrow::before{ display:none; }
+  .brand-options{ justify-content:flex-start; gap:10px; margin:26px 0 0; }
+  .brand-option{ width:142px; min-height:112px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); }
+  .brand-option:hover,.brand-option:focus-visible{ border-color:var(--mint); background:#f8faf7; }
+  .brand-wordmark{ font-size:1.1rem; }
+  .hero-cta{ justify-content:flex-start; margin-top:18px; }
+  .btn{ border-radius:5px; }
+  .btn-primary{ background:#315344; box-shadow:none; }
+  .btn-primary:hover{ background:#254233; }
+  .btn-ghost{ background:transparent; }
+  section{ padding-block:52px; }
+  .section-head{ margin-bottom:28px; }
+  .section-head h2{ font-size:2rem; color:var(--ink); }
+  .content-panel{ display:block; }
+  #proces{ display:block; }
+  .band{ background:#f7f8f5; }
+  .trust-strip{ background:#315344; }
+  .trust-strip .wrap{ max-width:1120px; }
+  .trust-icon{ border-radius:5px; }
+  .site-footer{ display:block; background:#fff; }
+  .pulse-divider{ display:none; }
+  .service-card,.booking-card,.price-table,details{ border-radius:6px; box-shadow:none; }
+  .repair-price,.repair-detail-meta span{ background:#eef2ed; color:#315344; }
+  .repair-time{ color:#53645a; }
+  .repair-option{ box-shadow:none; }
+  @media (max-width:700px){
+    .brand-hero h1{ font-size:2.35rem; }
+    .brand-options{ justify-content:flex-start; }
+    .brand-option{ width:calc(50% - 6px); }
+    .section-head h2{ font-size:1.7rem; }
+  }
+  @media (max-width:520px){ .header-actions .btn-primary{ display:none; } }
 </style>
 </head>
 <body>
 
-<div class="intro-screen" id="introScreen" role="dialog" aria-label="Velkommen til Telefondoktoren">
-  <div class="intro-content">
-    <div class="intro-mark" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3.2-8-7.1-8-11.2C4 6.6 6.5 4 9.6 4c1.6 0 2.9.8 3.4 1.8C13.5 4.8 14.8 4 16.4 4 19.5 4 22 6.6 22 9.8 22 13.9 16 17.8 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-    <h1>Telefondoktoren</h1>
-    <p>Din lokale mobilreparation i Kolding</p>
-    <div class="intro-line" aria-hidden="true"></div>
-  </div>
-  <button class="intro-skip" id="introSkip" type="button">Spring intro over</button>
-</div>
-
 <header class="site-header">
-  <div class="topbar"><div class="wrap"><span>Professionel mobilreparation med garanti</span><span>Ring til os: <a href="tel:+4552697932">+45 52 69 79 32</a></span></div></div>
+  <div class="topbar"><div class="wrap"><span>Mobilreparation i Kolding</span><span>Ring til os: <a href="tel:+4552697932">+45 52 69 79 32</a></span></div></div>
   <div class="wrap">
     <a href="#top" class="brand">
       <span class="brand-mark" aria-hidden="true">
@@ -683,7 +722,7 @@
       Telefondoktoren
     </a>
     <nav class="primary-nav" aria-label="Hovedmenu">
-      <a href="#diagnose">Diagnose</a>
+      <a href="#diagnose">Reparationer</a>
       <a href="#proces">Sådan foregår det</a>
       <a href="#priser">Priser</a>
       <a href="#kontakt">Kontakt</a>
@@ -697,7 +736,7 @@
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a href="#diagnose">Diagnose</a>
+    <a href="#diagnose">Reparationer</a>
     <a href="#proces">Sådan foregår det</a>
     <a href="#priser">Priser</a>
     <a href="#kontakt">Kontakt</a>
@@ -709,70 +748,52 @@
   <section class="hero brand-hero">
     <div class="wrap">
       <div>
-        <span class="eyebrow">Telefonreparation &middot; Kolding</span>
-        <h1>Vælg din enhed</h1>
-        <p class="lede">Vælg mærke for at se modeller og reparationer.</p>
+        <span class="eyebrow">Telefondoktoren · Kolding</span>
+        <h1>Få mobilen repareret i Kolding</h1>
+        <p class="lede">Vælg mærke og model, så finder du reparationer og vejledende priser.</p>
         <div class="brand-options" aria-label="Vælg mærke">
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Apple"><img class="brand-logo" src="https://cdn.simpleicons.org/apple/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Apple</span><small>iPhone</small></button>
-          <button class="brand-option" type="button" data-device="tablet" data-brand="Apple"><img class="brand-logo" src="https://cdn.simpleicons.org/apple/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Apple</span><small>iPad</small></button>
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Samsung"><img class="brand-logo" src="https://cdn.simpleicons.org/samsung/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">SAMSUNG</span><small>Galaxy</small></button>
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Huawei"><img class="brand-logo" src="https://cdn.simpleicons.org/huawei/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">HUAWEI</span><small>Telefoner</small></button>
           <button class="brand-option" type="button" data-device="smartphone" data-brand="Google"><img class="brand-logo" src="https://cdn.simpleicons.org/google/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">Google</span><small>Pixel</small></button>
           <button class="brand-option" type="button" data-device="smartphone" data-brand="OnePlus"><img class="brand-logo" src="https://cdn.simpleicons.org/oneplus/202124" width="34" height="34" alt="" aria-hidden="true"><span class="brand-wordmark">OnePlus</span><small>Telefoner</small></button>
         </div>
+        <div class="brand-results" id="brandResults" hidden>
+          <div class="model-options open" id="modelOptions" aria-live="polite">
+            <h3 id="modelOptionsTitle">Vælg din model</h3>
+            <div class="model-buttons" id="modelButtons"></div>
+          </div>
+          <div class="repair-options" id="repairOptions" aria-live="polite">
+            <div class="repair-options-head">
+              <div><h3 id="repairOptionsTitle">Hvad skal repareres?</h3><p class="repair-options-intro" id="repairOptionsIntro"></p></div>
+              <button class="back-to-models" id="backToModels" type="button">← Skift model</button>
+            </div>
+            <div class="repair-list" id="repairList"></div>
+          </div>
+          <div class="repair-detail" id="repairDetail" aria-live="polite">
+            <div class="repair-detail-card">
+              <div>
+                <button class="repair-detail-back" id="repairDetailBack" type="button">← Tilbage til reparationer</button>
+                <h3 id="repairDetailTitle"></h3>
+                <p id="repairDetailDescription"></p>
+                <div class="repair-detail-meta"><span id="repairDetailTime"></span><span>Garanti på arbejdet</span></div>
+              </div>
+              <div class="repair-detail-aside">
+                <span class="repair-detail-price" id="repairDetailPrice"></span>
+                <button class="btn btn-primary" id="repairDetailBook" type="button">Book denne reparation</button>
+              </div>
+            </div>
+          </div>
+          <p class="finder-message" id="finderMessage">Vi fandt ikke modellen. Vælg en enhedstype eller skriv den i bookingformularen.</p>
+        </div>
         <div class="hero-cta">
-          <a href="#kontakt" class="btn btn-primary">Book en tid</a>
+          <a href="#priser" class="btn btn-primary">Se priser</a>
           <a href="tel:+4552697932" class="btn btn-ghost">Ring: +45 52 69 79 32</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="device-finder" aria-labelledby="finder-title">
-    <div class="wrap">
-      <div class="finder-panel">
-        <span class="eyebrow">Find din reparation</span>
-        <h2 id="finder-title">Hvilken enhed skal vi hjælpe med?</h2>
-        <p>Søg efter din model, eller vælg en enhedstype for at komme i gang.</p>
-        <form class="finder-search" action="#kontakt">
-          <input type="search" placeholder="Indtast mærke eller model, f.eks. iPhone 13" aria-label="Søg efter telefonmodel">
-          <button class="btn btn-primary" type="submit">Find min model</button>
-        </form>
-        <div class="category-grid" aria-label="Vælg enhedstype">
-          <button class="category-card" type="button" data-device="smartphone"><span>SMARTPHONE</span></button>
-          <button class="category-card" type="button" data-device="tablet"><span>TABLET</span></button>
-          <button class="category-card" type="button" data-device="smartwatch"><span>SMARTWATCH</span></button>
-          <button class="category-card" type="button" data-device="laptop"><span>LAPTOP</span></button>
-        </div>
-        <div class="model-options" id="modelOptions" aria-live="polite">
-          <h3 id="modelOptionsTitle">Vælg din model</h3>
-          <div class="model-buttons" id="modelButtons"></div>
-        </div>
-        <div class="repair-options" id="repairOptions" aria-live="polite">
-          <div class="repair-options-head">
-            <div><h3 id="repairOptionsTitle">Hvad skal repareres?</h3><p class="repair-options-intro" id="repairOptionsIntro"></p></div>
-            <button class="back-to-models" id="backToModels" type="button">← Skift model</button>
-          </div>
-          <div class="repair-list" id="repairList"></div>
-        </div>
-        <div class="repair-detail" id="repairDetail" aria-live="polite">
-          <div class="repair-detail-card">
-            <div>
-              <button class="repair-detail-back" id="repairDetailBack" type="button">← Tilbage til reparationer</button>
-              <h3 id="repairDetailTitle"></h3>
-              <p id="repairDetailDescription"></p>
-              <div class="repair-detail-meta"><span id="repairDetailTime"></span><span>Garanti på arbejdet</span></div>
-            </div>
-            <div class="repair-detail-aside">
-              <span class="repair-detail-price" id="repairDetailPrice"></span>
-              <button class="btn btn-primary" id="repairDetailBook" type="button">Book denne reparation</button>
-            </div>
-          </div>
-        </div>
-        <p class="finder-message" id="finderMessage">Vi fandt ikke modellen. Vælg en enhedstype eller skriv den i bookingformularen.</p>
-      </div>
-    </div>
-  </section>
 
   <section class="trust-strip" aria-label="Fordele">
     <div class="wrap">
@@ -787,7 +808,7 @@
     <path d="M0 20 H420 L440 6 L460 34 L480 20 H520 L534 2 L548 38 L562 20 H1200" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
-  <section id="diagnose">
+  <section id="diagnose" class="content-panel">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Diagnose</span>
@@ -873,7 +894,7 @@
     </div>
   </section>
 
-  <section id="priser">
+  <section id="priser" class="content-panel">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Prisliste</span>
@@ -910,7 +931,7 @@
     </div>
   </section>
 
-  <section id="faq">
+  <section id="faq" class="content-panel">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Spørgsmål</span>
@@ -941,7 +962,7 @@
     </div>
   </section>
 
-  <section id="kontakt" class="band">
+  <section id="kontakt" class="band content-panel">
     <div class="wrap">
       <div class="contact-grid">
         <div>
@@ -1027,18 +1048,6 @@
 
 <script>
   (function(){
-    var introScreen = document.getElementById('introScreen');
-    var introSkip = document.getElementById('introSkip');
-    document.body.style.overflow = 'hidden';
-    function closeIntro(){
-      if(!introScreen || introScreen.classList.contains('is-hidden')) return;
-      introScreen.classList.add('is-hidden');
-      document.body.style.overflow = '';
-      window.setTimeout(function(){ introScreen.setAttribute('aria-hidden', 'true'); }, 900);
-    }
-    if(introSkip) introSkip.addEventListener('click', closeIntro);
-    window.setTimeout(closeIntro, 1700);
-
     var toggle = document.getElementById('menuToggle');
     var nav = document.getElementById('mobileNav');
     if(toggle && nav){
@@ -1110,6 +1119,7 @@
       ]
     };
     var categoryLabels = { smartphone:'Smartphone', tablet:'Tablet', smartwatch:'Smartwatch', laptop:'Laptop' };
+    var brandResults = document.getElementById('brandResults');
     var modelOptions = document.getElementById('modelOptions');
     var modelOptionsTitle = document.getElementById('modelOptionsTitle');
     var modelButtons = document.getElementById('modelButtons');
@@ -1128,6 +1138,8 @@
     var finderMessage = document.getElementById('finderMessage');
     var bookingModel = document.getElementById('bookingModel');
     var finderForm = document.querySelector('.finder-search');
+
+    if (brandResults) { brandResults.hidden = true; }
     var phonePhotos = [
       'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80',
       'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80',
@@ -1163,11 +1175,12 @@
         });
         modelButtons.appendChild(button);
       });
-      finderMessage.classList.remove('open');
-      modelOptions.classList.add('open');
-      repairOptions.classList.remove('open');
-      repairDetail.classList.remove('open');
-      modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      if (brandResults) { brandResults.hidden = false; }
+      if (finderMessage) { finderMessage.classList.remove('open'); }
+      if (modelOptions) { modelOptions.classList.add('open'); }
+      if (repairOptions) { repairOptions.classList.remove('open'); }
+      if (repairDetail) { repairDetail.classList.remove('open'); }
+      if (modelOptions) { modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
     }
 
     function showRepairs(model){
@@ -1187,9 +1200,9 @@
         });
         repairList.appendChild(option);
       });
-      repairOptions.classList.add('open');
-      repairDetail.classList.remove('open');
-      repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      if (repairOptions) { repairOptions.classList.add('open'); }
+      if (repairDetail) { repairDetail.classList.remove('open'); }
+      if (repairOptions) { repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
     }
 
     function showRepairDetail(model, repair, updateUrl){
@@ -1204,33 +1217,36 @@
         var slugRepair = repair.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         history.pushState({}, '', '?selected=repairs/' + encodeURIComponent(model.brand) + '/' + slugModel + '/' + slugRepair);
       }
-      repairOptions.classList.remove('open');
-      repairDetail.classList.add('open');
-      repairDetail.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      if (repairOptions) { repairOptions.classList.remove('open'); }
+      if (repairDetail) { repairDetail.classList.add('open'); }
+      if (repairDetail) { repairDetail.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
     }
 
-    repairDetailBook.addEventListener('click', function(){
-      var selectedModel = repairDetail.dataset.model;
-      var selectedRepair = repairData.find(function(repair){ return repair.name === repairDetail.dataset.repair; });
-      bookingModel.value = selectedModel;
-      document.querySelector('textarea[name="Beskrivelse"]').value = selectedRepair.booking + ' på ' + selectedModel + '. ';
-      document.getElementById('kontakt').scrollIntoView({ behavior:'smooth' });
-    });
+    if (repairDetailBook) {
+      repairDetailBook.addEventListener('click', function(){
+        var selectedModel = repairDetail.dataset.model;
+        var selectedRepair = repairData.find(function(repair){ return repair.name === repairDetail.dataset.repair; });
+        bookingModel.value = selectedModel;
+        document.querySelector('textarea[name="Beskrivelse"]').value = selectedRepair.booking + ' på ' + selectedModel + '. ';
+        document.getElementById('kontakt').scrollIntoView({ behavior:'smooth' });
+      });
+    }
 
-    repairDetailBack.addEventListener('click', function(){
-      repairDetail.classList.remove('open');
-      repairOptions.classList.add('open');
-      repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
-    });
+    if (repairDetailBack) {
+      repairDetailBack.addEventListener('click', function(){
+        repairDetail.classList.remove('open');
+        repairOptions.classList.add('open');
+        repairOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      });
+    }
 
-    backToModels.addEventListener('click', function(){
-      repairOptions.classList.remove('open');
-      modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
-    });
+    if (backToModels) {
+      backToModels.addEventListener('click', function(){
+        repairOptions.classList.remove('open');
+        modelOptions.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      });
+    }
 
-    document.querySelectorAll('.category-card').forEach(function(card){
-      card.addEventListener('click', function(){ showModels(card.getAttribute('data-device')); });
-    });
     document.querySelectorAll('.brand-option').forEach(function(button){
       button.addEventListener('click', function(){
         showModels(button.getAttribute('data-device'), button.getAttribute('data-brand'));
